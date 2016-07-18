@@ -40,3 +40,15 @@ describe("knapsack problem 01", function() {
     });
   
 });
+
+describe("knapsack problem 01 with 24 weights ", function() {
+   var dataset = require("./dataset");
+    xit("#run() return ", function() {
+    var capacity = dataset.capacity;
+    var optimal = dataset.optimal;
+    
+      var solution = testee.run(dataset.items, capacity, {"weight" : "cost", "value" : "profit"});
+      assert.equal(solution.value, optimal);
+    });
+  
+});
