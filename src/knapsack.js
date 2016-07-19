@@ -77,9 +77,9 @@ function run(items, capacity, map) {
 		
 		__shiftTempStructures(values, solution, capacity);
 		
-		for (var j = items[0][map.weight]; j <= capacity; j++) {
+		for (var j = items[0][map.weight]; j <= capacity;) {
 			
-
+			//console.log(j);
 			// the new item is more than the current weight limit
 			if (items[i-1][map.weight] > j) {
 				values[1][j] = values[0][j];
@@ -112,6 +112,20 @@ function run(items, capacity, map) {
 				}
 
 			}
+
+
+			var uBound = i == len ? capacity : Math.min(j + items[i][map.weight], capacity);
+			
+
+			if (uBound >= capacity) {
+				j++;
+			} 
+			else{
+				values[1].fill(values[1][j], j, uBound);
+				j = uBound;
+			}
+
+console.log(values);
 			
 		}
 
