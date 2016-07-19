@@ -1,0 +1,21 @@
+{
+	"optimal" : 1458,
+	"capacity" : 750,
+	"items": [
+{"cost":  70, "profit" :135},
+{"cost":  73, "profit" :139},
+{"cost":  77, "profit" :149},
+{"cost":  80, "profit" :150},
+{"cost":  82, "profit" :156},
+{"cost":  87, "profit" :163},
+{"cost":  90, "profit" :173},
+{"cost":  94, "profit" :184},
+{"cost":  98, "profit" :192},
+{"cost": 106, "profit" :201},
+{"cost": 110, "profit" :210},
+{"cost": 113, "profit" :214},
+{"cost": 115, "profit" :221},
+{"cost": 118, "profit" :229},
+{"cost": 120, "profit" :240}
+	]
+}
