@@ -21,12 +21,7 @@ function __shiftTempStructures(values, solution, capacity) {
 		values[0][j] = values[1][j];
 		solution[0][j] = solution[1][j];
 	}
-	values[1] = [];
-	solution[1]  = [];
-	for (var j =0; j <= capacity; j++) {
-		values[1].push(0);
-		solution[1].push(0);
-	}
+	
 }
 
 /**
@@ -72,14 +67,14 @@ function run(items, capacity, map) {
 	__initTempStructures(values, solution, capacity);
 
 	items.sort((a, b) => { return a[map.weight] - b[map.weight]});
-	
+
 	for(var i=1, len = items.length; i <=len; i++) {
 		
 		__shiftTempStructures(values, solution, capacity);
 		
-		for (var j = items[0][map.weight]; j <= capacity; j++) {
+		for (var j = items[i-1][map.weight]; j <= capacity; j++) {
 			
-
+			
 			// the new item is more than the current weight limit
 			if (items[i-1][map.weight] > j) {
 				values[1][j] = values[0][j];
@@ -112,12 +107,11 @@ function run(items, capacity, map) {
 				}
 
 			}
+
 			
 		}
 
 	}
-	
-
 	
 	var solutionMask = solution[1][capacity];
 	var solutionObj = __buildSolution(items, solutionMask);
