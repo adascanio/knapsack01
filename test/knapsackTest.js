@@ -54,7 +54,7 @@ describe("knapsack problem 01 with 15 weights ", function() {
 describe("knapsack problem 01 with 24 weights ", function() {
    var dataset = require("./data/dataset_24");
     it("#run() return ", function() {
-    this.timeout(10000);
+    this.timeout(15000);
     var capacity = dataset.capacity;
     var optimal = dataset.optimal;
     
