@@ -30,11 +30,11 @@ function __shiftTempStructures(values, solution, capacity) {
  * @param {Number} binary representation of the selected items 
  * @return {Object} contain the list of selected and unselected items in two different arrays 
  * <pre>solution</pre>
- * <pre>discarded</pre>
+ * <pre>excluded</pre>
  */
 function __buildSolution (items, bits) {
 	var sol= [];
-	var discarded = []
+	var excluded = []
 	for(var i =  0, len = items.length; i < len; i++){
 		var item = items[i];
 		var mask = 1 << i;
@@ -43,11 +43,11 @@ function __buildSolution (items, bits) {
 			sol.push(item);
 		} 
 		else {
-			discarded.push(item);
+			excluded.push(item);
 		}
 		
 	}
-	return {solution: sol, discarded : discarded};
+	return {solution: sol, excluded : excluded};
 } 
 /**
  * Run the Knapsack problem (KP01) in pseudo polynomial time
@@ -120,7 +120,7 @@ function run(items, capacity, map) {
 		valuesTable : values,
 		value : values[1][capacity],
 		solution : solutionObj.solution,
-		discarded : solutionObj.discarded,
+		excluded : solutionObj.excluded,
 		solutionMask : solutionMask
 	}
 		
