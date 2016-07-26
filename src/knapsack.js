@@ -3,25 +3,14 @@
  * Private function used to initialize solutions and values rows
  */
 function __initTempStructures(values, solution, capacity) {
+	
 	for (var j =0; j <= capacity; j++) {
 		values[0].push(0);
 		values[1].push(0);
 		solution[0].push(0);
 		solution[1].push(0);
 	}
-}
 
-/**
- * Private function used to shift values from the sencond to the first row
- * when scanning the next element
- */
-function __shiftTempStructures(values, solution, capacity) {
-	//values[0] = clone(values[1]);
-	for (var j =0; j <= capacity; j++) {
-		values[0][j] = values[1][j];
-		solution[0][j] = solution[1][j];
-	}
-	
 }
 
 /**
@@ -34,11 +23,14 @@ function __shiftTempStructures(values, solution, capacity) {
  */
 function __buildSolution (items, bits) {
 	var sol= [];
+
 	var excluded = []
+
 	for(var i =  0, len = items.length; i < len; i++){
 		var item = items[i];
 		var mask = 1 << i;
 		
+		//the flag is up so the item has been selected
 		if ((bits & mask) != 0) {
 			sol.push(item);
 		} 
@@ -66,12 +58,12 @@ function run(items, capacity, map) {
 	var solution = [[],[]];
 	__initTempStructures(values, solution, capacity);
 
-	items.sort((a, b) => { return a[map.weight] - b[map.weight]});
-
 	for(var i=1, len = items.length; i <=len; i++) {
 		
-		__shiftTempStructures(values, solution, capacity);
-		
+		//shift the calculated values and solution to the previous row
+		values[0] = values[1].slice();
+		solution[0] = solution[1].slice();
+
 		for (var j = items[i-1][map.weight]; j <= capacity; j++) {
 			
 			
@@ -107,8 +99,7 @@ function run(items, capacity, map) {
 				}
 
 			}
-
-			
+		
 		}
 
 	}
