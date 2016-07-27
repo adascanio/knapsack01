@@ -18,14 +18,27 @@ function __initTempStructures(values, solution, capacity) {
  * @param {Array} items
  * @param {Number} binary representation of the selected items 
  * @return {Object} contain the list of selected and unselected items in two different arrays 
- * <pre>solution</pre>
+ * <pre>selected</pre>
+ *    <pre>items</pre> the list of selected items (the problem solution)
+ *    <pre>totalValue</pre> the total value (the problem solution value)
+ *    <pre>totalCost</pre> the total cost (the weight used by the selected items)
  * <pre>excluded</pre>
+ *    <pre>items</pre> the list of excluded items 
+ *    <pre>totalValue</pre> the total value left out of the knapsack
+ *    <pre>totalCost</pre> the total cost of excluded items
  */
-function __buildSolution (items, bits) {
-	var sol= [];
+function __buildSolution (items, bits, map) {
 
+	var sol= [];
 	var excluded = []
 
+	var totalValue = 0,
+		totalCost = 0,
+		totalExcludedValue = 0,
+		totalExcludedCost = 0;
+
+	var valueMap = map.value;
+	var weightMap = map.Weight;
 	for(var i =  0, len = items.length; i < len; i++){
 		var item = items[i];
 		var mask = 1 << i;
@@ -33,20 +46,41 @@ function __buildSolution (items, bits) {
 		//the flag is up so the item has been selected
 		if ((bits & mask) != 0) {
 			sol.push(item);
+			totalValue = item[valueMap];
+			totalCost = item[weightMap];
 		} 
 		else {
 			excluded.push(item);
+			totalExcludedValue = item[valueMap];
+			totalExcludedCost = item[weightMap];
 		}
 		
 	}
-	return {solution: sol, excluded : excluded};
+	return { 
+			selected: {
+				items : sol,
+				totalValue : totalValue,
+				totalCost  : totalCost
+			},
+			excluded : {
+				items : excluded,
+				totalValue : totalExcludedValue,
+				totalCost  : totalExcludedCost
+			}
+			
+		};
 } 
+
 /**
  * Run the Knapsack problem (KP01) in pseudo polynomial time
  * assuming that Weight == Value 
  * @param {Array} items list of items to be inserted 
  * @param {number} capacity the knapsack capacity
- * @param {object} map object to map the item fields to weight and value 
+ * @param {object} map object to map the item fields to weight and value
+ * @return {object} the solution:
+ 	<pre>value</pre> the total solution value
+ 	<pre>solution</pre> @see solution Object
+ 	<pre>solutionMask</pre> bit mask indicating the selected items
  *
  */
 function run(items, capacity, map) {
@@ -105,13 +139,11 @@ function run(items, capacity, map) {
 	}
 	
 	var solutionMask = solution[1][capacity];
-	var solutionObj = __buildSolution(items, solutionMask);
+	var solutionObj = __buildSolution(items, solutionMask, map);
 	
 	return {
-		valuesTable : values,
 		value : values[1][capacity],
-		solution : solutionObj.solution,
-		excluded : solutionObj.excluded,
+		solution : solutionObj,
 		solutionMask : solutionMask
 	}
 		
