@@ -11,19 +11,22 @@ describe("knapsack problem 01", function() {
 		var capacity = 7;
     	var result = testee.run(simpleData.items, capacity);
    		assert.equal(result.value, 7);
+      assert.equal(result.solution.selected.totalValue, 7);
     });
 
     it("#run() return value == 10 for capacity 11", function() {
 		var capacity = 11;
     	var result = testee.run(simpleData.items, capacity);
    		assert.equal(result.value, 10);
+      assert.equal(result.solution.selected.totalValue, 10);
     });
 
-    it("#run() return value == 13 for capacity 15", function() {
+    it("#run() return value == 13 for capacity 15 and excluded value of 7", function() {
 		var capacity = 15;
     	var result = testee.run(simpleData.items, capacity);
    		
       assert.equal(result.value, 13);
+      assert.equal(result.solution.excluded.totalValue, 7);
 
       //selected items
       assert.equal(result.solutionMask, 3);
@@ -73,6 +76,7 @@ describe("knapsack problem 01 with 24 weights ", function() {
       
       //total value
       assert.equal(result.value, optimal);
+      assert.equal(result.solution.selected.totalValue, optimal);
       //selected items
       assert.equal(result.solutionMask.toString(2), selectionMask);
     });

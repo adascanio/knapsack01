@@ -46,13 +46,13 @@ function __buildSolution (items, bits, map) {
 		//the flag is up so the item has been selected
 		if ((bits & mask) != 0) {
 			sol.push(item);
-			totalValue = item[valueMap];
-			totalCost = item[weightMap];
+			totalValue += item[valueMap];
+			totalCost += item[weightMap];
 		} 
 		else {
 			excluded.push(item);
-			totalExcludedValue = item[valueMap];
-			totalExcludedCost = item[weightMap];
+			totalExcludedValue += item[valueMap];
+			totalExcludedCost += item[weightMap];
 		}
 		
 	}
