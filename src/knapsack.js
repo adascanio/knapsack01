@@ -38,7 +38,7 @@ function __buildSolution (items, bits, map) {
 		totalExcludedCost = 0;
 
 	var valueMap = map.value;
-	var weightMap = map.Weight;
+	var weightMap = map.weight;
 	for(var i =  0, len = items.length; i < len; i++){
 		var item = items[i];
 		var mask = 1 << i;
